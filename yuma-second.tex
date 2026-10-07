@@ -1,0 +1,91 @@
+\path[fill=blue]
+(atrium) ++(0, -20em) \atrium
+\restrooms
+
+(atrium -| front-stairs)
+node[stairs, fill=orange, "\xf East" under] (front-stairs) {}
+
+($(atrium-stairs)!0.5!(front-stairs)$)
+node[station, "Clinic\\Y265" ontop] (clinic) {}
+
+coordinate[right=\bridgegap of front-stairs,
+"\textbf{$\leftarrow$ Yuma\quad Capital $\rightarrow$}\\\\Bridge" ontop]
+(cap)
+
+(back-stairs |- bath)
+node[stairs, fill=green, "\xf West" angled] (back-stairs) {}
+
+(323 |- back-stairs) node[station, "Y218--225\\\fac" toleft] (218)
+{}
+node[above=of 218, station, "Y226--234\\\fac \copier" ontop] (226)
+{}
+node[above=1.5em of back-stairs, station, "Y235 \class"
+{angled, anchor=west}] (235) {}
+
+(atrium -| back-stairs) node[station, "Y210--217 \fac" under] (210)
+{}
+
+(coffee |- bath) coordinate (coffee-n)
+(coffee-n |- atrium) coordinate (coffee-s)
+($(coffee-n)!0.5!(coffee-s)$) node[station,
+"Bus.~Law\\Y207 \kitchen \copier" toleft] (coffee) {}
+
+($(coffee-s)!0.5!(atrium)$) node[station, "Y201--206 \fac" under]
+(201) {}
+
+(bath |- 226) ++(2em, 0) node[station, "Y251--262\\\fac \copier"
+toright]
+(251) {}
+
+node[station, left=of bath, "Y250\\\class" under]
+(250) {}
+node[station, above left=1.5em of 250, "Y249 \class"
+{angled,anchor=west}]
+(249) {}
+node[station, left=of 250, "Y236\\\class" under] (236) {}
+(226 -| 236) node[station, "Y237--248\\\fac \copier" ontop] (237)
+{}
+
+node[right=\bridgegap of cap, station, "C217 \class" ontop] (c217) {}
+coordinate[below right=1em and 6em of c217] (corner-2)
+(c217 -| corner-2) node[station, "C200" toright] (c200) {}
+node[below=\smallgap of corner-2, stairs, "\bath" toleft,
+"Admissions\\C201" toright, fill=magenta] (admit) {}
+
+node[below=\smallgap of admit, transfer, fill=magenta] (c-elevator) {}
+
+node[below=\smallgap of c-elevator, station, "Advancement\\C202" toright]
+(fa) {}
+node[left=of fa, station, "C203" below] (c203) {}
+node[left=of c203, station, "{PIJIP, TLS\\C205}" under] (c205) {}
+
+node[stairs, above=\smallgap of c205,
+fill=gray]
+(ct-stairs) {}
+
+node[transfer, above=\smallgap of ct-stairs,
+fill=gray] (ct-elevator) {}
+
+(atrium |- ct-elevator)
+node[font=\color{blue}\bfseries\LARGE, align=center] {SECOND FLOOR}
+;
+
+
+\path[draw=blue, line width=4pt, rounded corners]
+(front-stairs) -- (clinic) -- (atrium-stairs) -- (atrium) -- (201) -- (210) -|
+(218) -- (226) -| (235) -- (back-stairs)
+(atrium) -- (bath) |- (251)
+(bath) -- (250) -- (236) -- (coffee-n) -- (back-stairs) -- (218)
+(236) -- (237) -| (249) -- (249 |- 250)
+(c200) -- (corner-2) -- (admit) -- (c-elevator)
+node[midway, toleft] {\xf Capital}
+-- (fa) -- (c203) -- (c205) --
+(ct-stairs) -- (ct-elevator)
+node[midway, toleft] {\xf Court}
+(coffee-n) -- (coffee) -- (coffee-s)
+;
+\path[draw=blue, line width=4pt, rounded corners, dashed]
+(front-stairs) -- (cap) -- (c217) |- (corner-2)
+;
+
+

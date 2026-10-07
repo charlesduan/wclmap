@@ -1,0 +1,131 @@
+\path[fill=purple]
+
+(atrium) ++(0, -22em)
+\atrium
+
+node[station, above=of atrium, "Y100" {rangled, anchor=east}, "\bath"
+toright] (bath) {}
+
+(atrium -| front-stairs)
+node[stairs, fill=orange, "\xf East" rangled] (front-stairs) {}
+
+(back-stairs |- bath)
+node[stairs, fill=green, "\xf West" toright] (back-stairs) {}
+
+node[above=\smallgap of bath, station, "Faculty Lounge\\Y112 \bath" toright]
+(fac-lounge) {}
+node[above=\smallgap of fac-lounge, station, "Y111" ontop] (111) {}
+
+(back-stairs |- atrium) coordinate (dining-left)
+node[right=of dining-left, station, "Dining\\Area \food" ontop] (dining) {}
+(218 |- back-stairs) node[station, "Cafeteria \food" toleft] (cafeteria) {}
+
+node[station, left=8em of 111, "Y110" ontop] (110) {}
+
+(110 -| cafeteria) coordinate["Service\\exit" toleft] (svc-exit)
+
+node[right=\smallgap of atrium-stairs, station, "Y115 \class" angled] (115) {}
+node[right=\smallgap of 115, station, "Y116 \class" angled] (116) {}
+
+(front-stairs -| cap) coordinate[
+"\textbf{$\leftarrow$ Yuma\quad Capital $\rightarrow$}\\\\Bridge" ontop]
+(cap)
+
+(c217 |- cap) node["C117 \court" above, station] (c117) {}
+
+($(c117)-(c217)+(ct-elevator)$) node[transfer, fill=gray, "\xf Court"
+toleft] (ct-elevator) {}
+
+node[stairs, below=\smallgap of ct-elevator, fill=gray,
+"Weinstein\\Courtroom\\C116 \court" toleft] (ct-stairs) {}
+
+node[station, below=\smallgap of ct-stairs, "OCPD C115" rangled] (c115) {}
+
+(c115 -| fa) node[station, "Registrar C107" rangled] (c107) {}
+($(c115)!0.5!(c107)$) node[station, "C108--114" rangled] (c109) {}
+
+node[above=\smallgap of c107, transfer,
+fill=magenta] (c-elevator) {}
+
+node[above=\smallgap of c-elevator, stairs, fill=magenta,
+"\bath" toleft] (c-stairs) {}
+node[right=\smallgap of c-stairs, station, "Student\\Affairs C101" angled]
+(c101) {}
+coordinate[right=of c101, "Exit" toright] (c101-exit)
+
+node[above=of c-stairs, station, "Academic\\Excellence C100" {angled,
+anchor=north west}]
+(c100) {}
+
+coordinate[above=of c100, "Exit" ontop] (historic-exit)
+
+coordinate[below=of dining] (dining-exit)
+coordinate[below=of 115] (main-exit)
+($(dining-exit)!0.5!(main-exit)$) ++(0, -\smallgap)
+node[font=\color{purple}\bfseries\LARGE, align=center] {FIRST FLOOR, YUMA QUAD}
+
+(main-exit) ++(0, -\smallgap) ++(0, -\smallgap)
+coordinate (n-exit)
+node[station, "Vending \food" toright, below=of n-exit] (n-foyer) {}
+node[left=of n-foyer, stairs, "\xf Warren" ontop,
+fill=cyan]
+(n-terrace) {}
+node[below=\smallgap of n-terrace, station, "Library N100 \library" toleft,
+"N101 \class" toright] (library) {}
+node[transfer, fill=cyan, below=\smallgap of library, "N102 \class" toright,
+"\xf Warren\\\bath" toleft] (n102) {}
+node[station, below=\smallgap of n102, "N103--105 \class" toright] (n103) {}
+;
+
+
+
+%
+% Lines
+%
+
+\path[draw=purple, line width=4pt, rounded corners]
+(cafeteria) |- (dining) -| (110) -- (111) -- (fac-lounge) -- (bath)
+
+(bath -| 110) --
+(bath) -- (atrium) -- (atrium-stairs) -- (115) -- (116) -- (front-stairs)
+
+(back-stairs) -- (dining -| back-stairs)
+
+(c117) |- (ct-stairs)
+
+(ct-elevator) -- (ct-stairs)
+(c115) -- (c109) -- (c107) -- (c-elevator) -- (c-stairs)
+node[pos=0.5, toleft] {\xf Capital}
+-- (c100)
+
+(n-terrace) -- (library) -- (n102) -- (n103)
+
+(front-stairs) -- (cap) -- (c117)
+
+(c-stairs) to (c101)
+;
+
+\path[draw=purple, line width=4pt, -Stealth, rounded corners]
+(back-stairs) |- (svc-exit)
+;
+\path[draw=purple, line width=4pt, -Stealth, dashed, rounded corners]
+(c100) edge (historic-exit)
+(c101) edge (c101-exit)
+;
+
+\path[draw=purple, line width=4pt, -Stealth, rounded corners]
+(dining) -- (dining-exit)
+;
+
+\path[draw=purple, line width=4pt, -Stealth, rounded corners]
+(115) -- (main-exit)
+;
+
+\path[draw=purple, line width=4pt, -Stealth, rounded corners]
+(n-terrace) -- (n-foyer) -- (n-exit)
+;
+
+\path[draw=purple, line width=4pt, dashed]
+(c115) -- (ct-stairs) node[base right, pos=0.5] {Stairs}
+;
+

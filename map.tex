@@ -1,0 +1,169 @@
+\documentclass[10pt]{article}
+\usepackage[mag=750,margin=0.5in,papersize={11.333in,14.667in}]{geometry}
+\usepackage{fontspec}
+\setmainfont{Helvetica}
+\usepackage{tikz}
+\usetikzlibrary{positioning,quotes,arrows.meta}
+\usetikzlibrary{calc,decorations.shapes,shapes.geometric}
+\usepackage{fontawesome5}
+\usepackage{setatwid}
+
+\pagestyle{empty}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\def\xf{\bfseries\itshape}
+\def\of{}
+
+\tikzset{
+every edge quotes/.style={black},
+node distance=4em and 4em,
+station/.style = {
+    circle,
+    fill,
+    draw=none,
+    minimum size=12pt,
+},
+stairs/.style = {
+    fill=white,
+    draw=black,
+    line width=2pt,
+    double=white,
+    double distance=2pt,
+    minimum size=14pt,
+    outer sep=4pt,
+},
+transfer/.style = {
+    circle,
+    fill=white,
+    draw=black,
+    line width=2pt,
+    double=white,
+    double distance=2pt,
+    minimum size=14pt,
+    outer sep=4pt,
+},
+angled/.style = {
+    rotate=45,
+    anchor=base west,
+    label position=45,
+    align=left,
+},
+rangled/.style = {
+    rotate=45,
+    anchor=north east,
+    label position=215,
+    align=right,
+},
+toleft/.style = {
+    anchor=east,
+    label position=180,
+    align=right,
+},
+toright/.style = {
+    anchor=west,
+    label position=0,
+    align=left,
+},
+ontop/.style = {
+    anchor=south,
+    label position=90,
+    align=center,
+},
+under/.style = {
+    anchor=north,
+    label position=270,
+    align=center,
+},
+bridge/.style = {
+    fill=#1, draw=#1, decorate, decoration={
+        shape backgrounds, shape=dart, shape size=6pt,
+    }
+},
+walkway/.style = {
+    dash pattern=on 1em off 3pt, line width=2pt, draw=#1, rounded corners,
+},
+}
+
+
+\def\fac{\faGraduationCap\space}
+%\def\copier{\faCopy\space}
+\def\copier{}
+\def\bath{\faRestroom\space}
+%\def\kitchen{\faCoffee\space}
+\def\kitchen{}
+\def\class{\faChalkboardTeacher\space}
+\def\court{\faGavel\space}
+\def\food{\faUtensils\space}
+%\def\library{\faBookReader\space}
+\def\library{}
+\def\event{\faMicrophone\space}
+
+\def\smallgap{1.5em }
+\def\bridgegap{5em }
+
+\def\legend{
+\begin{tabular}{cl}
+\lower 0.6em\hbox{\tikz{\node[transfer]{};}}& Elevator \\[4pt]
+\raise 0em\hbox{\tikz{\draw[bridge=black](0,0)--(3em,0);}}& Elevator
+Connection\\
+\lower 0.6em\hbox{\tikz{\node[stairs]{};}}& Stairs \\[4pt]
+\raise 0em\hbox{\tikz{\draw[line width=4pt,dashed](0,0)--(3em,0);}}&
+Non-Accessible Connection\\
+ & (stairs or manual door) \\[4pt]
+\raise 0.2em\hbox{\tikz{\draw[walkway=black](0,0)--(3em,0);}}& Outdoor
+Walkway\\
+%\kitchen & Kitchen \\
+\food & Food/Dining \\
+%\copier & Copier \\
+\bath & Restroom \\
+\class & Classroom \\
+\court & Courtroom \\
+\fac & Faculty Offices \\
+%\library & Library \\
+\event & Event Space \\
+\end{tabular}
+}
+\def\atrium{
+node[transfer, fill=yellow, "\xf Central" {under, anchor=north west}]
+(atrium) {}
+node[stairs, fill=yellow, right=\smallgap of atrium] (atrium-stairs) {}
+}
+\def\restrooms{
+node[station, above=of atrium, "\bath\unskip" toright] (bath) {}
+}
+
+\begin{center}
+\begin{tikzpicture}
+\input yuma-third
+
+\input yuma-fourth
+
+\input yuma-second
+
+\input first
+
+\path
+(library -| back-stairs) ++(0, -1em)
+node[draw] {\legend}
+
+(c317 |- 402) ++(2em, 0)
+node[anchor=north, font=\LARGE\bfseries, align=center, draw, inner sep=2em, line
+width=2pt] {GETTING AROUND\\AUWCL CAMPUS\\\normalsize An Unofficial
+Map\\\normalsize https://github.com/charlesduan/wclmap}
+;
+
+\end{tikzpicture}
+\end{center}
+
+
+\begin{center}
+\begin{tikzpicture}
+\input terrace
+\end{tikzpicture}
+\end{center}
+
+\input verticals
+\end{document}

@@ -1,0 +1,256 @@
+\begin{center}
+\vskip 2em
+{\LARGE\bfseries ELEVATOR AND STAIR CONNECTIONS\par }
+
+\begin{large}
+\fullcenteratwidth{%
+This map depicts the campus as if cross-sections were taken at every level. The
+vertical connections are stairs (dashed, squares) and/or elevators (solid,
+circles). Names in {\xf bold italics} correspond to the names used on the floor
+maps above. Lines of arrows indicate
+outdoor pathways.
+}
+\end{large}
+
+\vskip 2em
+
+\begin{tikzpicture}[
+on grid=true,
+node distance=7em and 10em,
+arced/.style={bend left=17},
+stair above label/.style={
+    above=1.5em of #1.north, align=center, anchor=south,
+},
+stair label/.style={
+    below=0.5em of #1.south, align=center, anchor=north,
+},
+es label/.style={
+    below right=0.5em and 1.5em of #1.south, align=center, anchor=north,
+},
+es above label/.style={
+    above right=0.5em and 1.5em of #1.north, align=center, anchor=south,
+},
+]
+
+\def\stairgap{3em }
+
+\path[fill=green, stairs/.append style={fill=green}]
+node[stairs, "4th" left] (yw4) {}
+node[stairs, below=of yw4, "3rd" left] (yw3) {}
+node[stairs, below=of yw3, "2nd" left] (yw2) {}
+node[stairs, below=of yw2, "1st" left] (yw1) {}
+node[below=of yw1] (ywx) {}
+node[stairs, below=of ywx, "Terrace" left] (ywt) {}
+node[below=of ywt, stairs, "Parking" left] (ywp) {}
+node[stair label=ywp] {Yuma {\xf West}\\(also service\\elevator)}
+;
+\draw[green, dashed, line width=4pt]
+(yw4) -- (yw3) -- (yw2) -- (yw1) -- (ywt) -- (ywp)
+;
+
+\path[fill=yellow, transfer/.append style={fill=yellow}, stairs/.append
+style={fill=yellow}]
+node[transfer, right=of yw4] (ym4) {}
+node[transfer, below=of ym4] (ym3) {}
+node[transfer, below=of ym3] (ym2) {}
+node[transfer, below=of ym2] (ym1) {}
+node[below=of ym1] (ymx) {}
+node[transfer, below=of ymx] (ymt) {}
+node[below=of ymt, transfer] (ymp) {}
+node[right=\stairgap of ym4, stairs] (ym4s) {}
+node[right=\stairgap of ym3, stairs] (ym3s) {}
+node[right=\stairgap of ym2, stairs] (ym2s) {}
+node[right=\stairgap of ym1, stairs] (ym1s) {}
+node[right=\stairgap of ymt, stairs] (ymts) {}
+node[right=\stairgap of ymp, stairs] (ymps) {}
+
+node[es label=ymp] (ymlabel) {Yuma {\xf Central}}
+;
+\draw[yellow, line width=4pt]
+(ym4) -- (ym3) -- (ym2) -- (ym1) -- (ymt) -- (ymp)
+;
+\draw[yellow, dashed, line width=4pt]
+(ym4s) -- (ym3s) -- (ym2s) -- (ym1s) -- (ymts) -- (ymps)
+;
+
+\path[fill=cyan, stairs/.append style={fill=cyan}, transfer/.append
+style={fill=cyan}]
+node[right=of ym1s] (n1-actual) {}
+node[transfer, below=3em of n1-actual, "Library \library \class" below left]
+(n1) {}
+(ymts -| n1) node (nt-actual) {}
+node[below=3em of nt-actual, transfer] (nt) {}
+
+node[right=\stairgap of n1, stairs] (n1s) {}
+node[right=\stairgap of nt, stairs, "Ceremonial\\\class \event" {below,
+anchor=north west, align=left}] (nts) {}
+(nts |- nt-actual) node (nts-actual) {}
+
+node[transfer, below=of nt-actual] (np) {}
+node[stair label=np] {{\xf Warren}}
+
+node[right=\stairgap of nts-actual] (quad-stairs) {}
+;
+
+\draw[cyan, line width=4pt]
+(n1) to (nt) to (np)
+;
+\draw[cyan, dashed, line width=4pt]
+(n1s) to (nts)
+;
+
+\path[fill=brown, stairs/.append style={fill=brown}, transfer/.append
+style={fill=brown}]
+node[stairs, right=of nts-actual] (yxts) {}
+node[stairs, above=of yxts] (yxys) {}
+node[transfer, right=\stairgap of yxts] (yxt) {}
+node[transfer, right=\stairgap of yxys] (yxy) {}
+;
+\draw[brown, line width=4pt]
+(yxt) -- (yxy)
+;
+\draw[brown, line width=4pt, dashed]
+(yxts) to["Yuma\\{\xf North}" toleft] (yxys)
+;
+
+\path[fill=orange, stairs/.append style={fill=orange}]
+node[right=4em of yxy] (yet-pos) {}
+(yet-pos |- np) node[stairs] (yep) {}
+(yep |- ym1) node[stairs] (ye1) {}
+node[below=of ye1, stairs] (yet) {}
+node[stairs, above=of ye1] (ye2) {}
+node[stairs, above=of ye2] (ye3) {}
+node[stairs, above=of ye3] (ye4) {}
+node[stair label=yep] {Yuma {\xf East}\\Stairs Only}
+;
+\draw[orange, dashed, line width=4pt]
+(ye4) -- (ye3) -- (ye2) -- (ye1) -- (yet) -- (yep)
+;
+
+
+\path[fill=gray, transfer/.append style={fill=gray},
+stairs/.append style={fill=gray}]
+node[transfer, right=of ye1, "Weinstein \court" below left] (ct1) {}
+node[above=of ct1] (ct2-level) {}
+node[transfer, below=2em of ct2-level] (ct2) {}
+node[stairs, right=\stairgap of ct1] (ct1-atrium) {}
+node[transfer, below=of ct1] (ctt-elevator) {}
+node[stairs, below=of ct1-atrium, "Capital\\Atrium \event" {above right,
+align=left}] (ctt) {}
+
+node[left=\stairgap of ct2-level] (ct2s-level) {}
+node[stairs, left=\stairgap of ct2] (ct2s) {}
+node[stairs, above=of ct2s] (ct3s) {}
+node[stairs, left=\stairgap of ct1] (ct1s) {}
+node[es label=ctt-elevator] {{\xf Court}\\partial elevator\\and stairs}
+;
+\draw[gray, line width=4pt]
+(ct2) -- (ct1) -- (ctt-elevator)
+;
+\draw[gray, dashed, line width=4pt]
+(ct3s) -- (ct2s) -- (ct1s)
+(ct1-atrium) -- (ctt)
+;
+
+\path[fill=magenta, , stairs/.append style={fill=magenta}, transfer/.append
+style={fill=magenta}]
+node[transfer, right=12em of ct1] (c1) {}
+node[transfer, above=of c1] (c2) {}
+node[transfer, above=of c2] (c3) {}
+node[transfer, below=of c1] (ct) {}
+node[transfer, below=of ct] (cj) {}
+
+node[stairs, left=\stairgap of c3] (c3s) {}
+node[stairs, left=\stairgap of c2] (c2s) {}
+node[stairs, left=\stairgap of c1] (c1s) {}
+node[stairs, left=\stairgap of ct] (ct-jstairs) {}
+node[stairs, below=of ct-jstairs, "Journals" toleft] (cj-jstairs) {}
+node[es label=cj-jstairs] {{\xf Capital}\\elevator and\\partial stairs}
+;
+\path
+;
+\draw[magenta, line width=4pt]
+(c3) -- (c2) -- (c1) -- (ct) -- (cj)
+;
+\draw[magenta, dashed, line width=4pt]
+(ct-jstairs) -- (cj-jstairs)
+(c3s) -- (c2s) -- (c1s)
+;
+
+\draw[pink, line width=4pt]
+(yw4) to["\class" above] (ym4) to (ym4s) to["\class" above] (ye4)
+;
+
+\draw[red, line width=4pt, rounded corners]
+(c3s |- ct3s) ++(-\stairgap, 0) coordinate (ct3-angle)
+
+(yw3) to["\fac" above] (ym3) to (ym3s) to["Program Offices" above] (ye3)
+(c3s) to (ct3-angle) to (ct3s)
+(c3s) to (c3)
+;
+\draw[red, line width=4pt, dashed, rounded corners]
+(ye3) to["Bridge \class" ontop] (c3s)
+;
+
+\draw[blue, line width=4pt, rounded corners]
+(c2s |- ct2s) ++(-\stairgap, 0) coordinate (ct2-angle)
+
+(yw2) to["\fac \class" above] (ym2) to (ym2s) to["Clinic" above] (ye2)
+(c2) to (c2s) to (ct2-angle) to (ct2) to (ct2s)
+;
+\draw[blue, dashed, line width=4pt, rounded corners]
+(ye2) to (ct2s-level) to["Bridge \class" ontop] (c2s)
+;
+
+\draw[purple, line width=4pt]
+(yw1) to["Cafeteria \food" above] (ym1) to (ym1s)
+to["\class" above] (ye1)
+(ct1s) to (ct1) to (ct1-atrium)
+(c1) -- (c1s)
+(n1) -- (n1s)
+(ye1) to["Bridge" ontop] (ct1s)
+;
+\draw[purple, line width=4pt, dashed]
+(ct1-atrium) -- (c1s)
+;
+
+\draw[walkway=purple]
+(ym1s |- n1) ++(\stairgap, 0) coordinate (ym1s-angle)
+(ym1s) to (ym1s-angle) to (n1)
+(n1s -| yet) ++(-\stairgap, 0) coordinate (yet-angle)
+(n1s) to["Yuma Quad" above] (yet-angle) to["\of Ramp" {below, sloped}] (yet)
+;
+
+\draw[violet, line width=4pt, rounded corners]
+(ywt) to["Grossman\\Hall \event \class" ontop] (ymt) to (ymts)
+to["\class" ontop] (nt-actual) to (nts-actual) to (quad-stairs)
+to (yxts) to (yxt)
+(ymts |- nt) ++(\stairgap, 0) coordinate (ymts-angle)
+(ymts) to (ymts-angle) to["Commons" {under, sloped}, "\class" above] (nt) to
+(nts)
+
+(yxys) to (yxy)
+
+(ctt-elevator) -- (ctt) -- (ct-jstairs) -- (ct)
+(cj-jstairs) -- (cj)
+;
+
+\draw[walkway=violet]
+
+(yxy) -- (yet) to["\of Yuma Street" ontop, "\of Atrium Plaza" under]
+(ctt-elevator)
+
+(cj-jstairs |- nts) ++(-\stairgap, 0) coordinate (cj-jstairs-angle)
+(yep |- nts) node (yep-intersect) {}
+
+(nts) to (yep-intersect)
+to["\of Nebraska Ave\\\of Parking Entrance" under]
+(cj-jstairs-angle) to (cj-jstairs)
+
+(quad-stairs |- n1s) to["Outside\\stairs" {toright, near start}]
+(quad-stairs |- nts)
+;
+
+\end{tikzpicture}
+\end{center}
+

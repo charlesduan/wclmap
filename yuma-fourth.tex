@@ -1,0 +1,35 @@
+\path[fill=pink]
+
+(atrium) ++(0, 20em)
+node[transfer, fill=yellow, "\xf Central" {under, anchor=north west}]
+(atrium-4) {}
+node[right=\smallgap of atrium-4, stairs, fill=yellow] (atrium-stairs) {}
+
+node[station, above=of atrium-4, "\bath" toright] (bath) {}
+
+(bath -| back-stairs)
+node[stairs, fill=green, "\xf West" angled] (back-stairs) {}
+
+(atrium-4 -| front-stairs)
+node[stairs, fill=orange, "\xf East" under] (front-stairs) {}
+
+($(back-stairs)!0.25!(bath)$) node["Y404 \class" angled, station] (404) {}
+($(back-stairs)!0.5!(bath)$) node["Y403 \class" angled, station] (403) {}
+($(back-stairs)!0.75!(bath)$) node["Y402 \class" angled, station] (402) {}
+
+($(atrium-stairs)!0.33!(front-stairs)$) node["Y401 \class" angled, station]
+(401) {}
+($(atrium-stairs)!0.67!(front-stairs)$) node["Y400 \class" angled, station]
+(400) {}
+
+(403 |- atrium-4) ++(0, 3em)
+node[font=\color{pink}\bfseries\LARGE, align=center] {FOURTH FLOOR}
+;
+
+
+
+
+\path[draw=pink, line width=4pt, rounded corners]
+(back-stairs) -- (404) -- (403) -- (402) -- (bath) -- (atrium-4)
+-- (atrium-stairs) -- (401) -- (400) -- (front-stairs)
+;

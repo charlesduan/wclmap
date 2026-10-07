@@ -1,0 +1,182 @@
+\path[fill=violet]
+
+node[station, "Mail \&\\Copy\\YT07 \copier" toleft] (copy) {}
+node[right=\smallgap of copy, stairs, fill=green, "\xf West"
+ontop] (back-stairs) {}
+node[right=\smallgap of back-stairs, station, "Facilities YT05" angled]
+(facilities) {}
+node[below=of facilities, station, "Student Orgs.\\YT04" toleft] (orgs) {}
+
+node[right=of orgs, station, "Grossman\\Hall YT01 \event"
+ontop] (grossman) {}
+
+node[right=of grossman, transfer, fill=yellow, "\xf Central" {under,
+anchor=north west}] (atrium) {}
+node[right=\smallgap of atrium, stairs, fill=yellow]
+(atrium-stairs) {}
+
+node[above=of atrium, station, "\bath" toright] (bath) {}
+node[above=\smallgap of bath, station, "YT14--15 \class" toright] (yt14) {}
+node[right=\smallgap of atrium-stairs, station, "YT16 \class" angled] (yt16) {}
+node[right=\smallgap of yt16, station, "YT17 \class" angled] (yt17) {}
+
+node[stairs, fill=orange, right=11em of yt17, "\xf East\\\emph{No
+Terrace}\\\emph{access}" under] (front-stairs) {}
+node[right=of front-stairs] (front-stairs-exit) {}
+
+(front-stairs-exit |- back-stairs) coordinate (north-elevator-exit)
+node[left=\smallgap of front-stairs, transfer, fill=brown] (north-elevator) {}
+(north-elevator |- north-elevator-exit)
+node[transfer, fill=brown, "\xf North" ontop]
+(north-elevator-above) {}
+
+node[stairs, left=\smallgap of north-elevator, fill=brown] (north-stairs) {}
+(north-stairs |- north-elevator-above) node[stairs, fill=brown]
+(north-stairs-above) {}
+
+($(north-elevator-exit)!0.5!(front-stairs-exit)$) ++(8em, 0)
+node[font=\color{violet}\bfseries\LARGE, align=center] {YUMA STREET\\CAPITAL
+ATRIUM\\PLAZA}
+
+node[below=of atrium, station, "Group\\Study" toleft] (group-study) {}
+(group-study -| yt16) node[station, "Commons" toright] (commons) {}
+node[below=of commons, stairs, fill=cyan, "\xf Warren" toright]
+(n-stairs) {}
+(n-stairs -| group-study) coordinate(t-garage-right)
+coordinate[left=of t-garage-right, "To Parking" toleft] (t-garage)
+
+(orgs |- group-study)
+node[font=\color{violet}\bfseries\LARGE, align=center] {TERRACE\\LEVEL}
+
+(t-garage -| yt16)
+node[below=of n-stairs, station, "Info Desk" {angled, anchor=west}] (info) {}
+node[right=of info, font=\color{violet}\bfseries\LARGE, align=center] (nebraska)
+{NEBRASKA\\AVENUE}
+
+node[transfer, left=of info, fill=cyan, "\xf Warren"
+angled] (n-elevator) {}
+
+node[left=\smallgap of n-elevator, station, "Help Desk NT10" angled]
+(helpdesk) {}
+node[left=\smallgap of helpdesk, station, "NT07 \class" rangled] (nt07) {}
+node[left=\smallgap of nt07, station, "NT08 \class" rangled, "\bath\unskip" ontop] (nt08)
+{}
+coordinate[left=of nt08, "To Warren St" toleft] (nt08-exit)
+
+node[below=of info, station, "Ceremonial\\Classroom\\NT01 \class\event" toright]
+(nt01) {}
+
+node[left=\smallgap of nt01, station, "NT03 \class" toleft, "\bath" ontop]
+(nt03) {}
+
+node[below=\smallgap of nt03, station, "NT02 \class" toleft] (nt02) {}
+
+;
+
+
+
+%
+% Edges
+%
+
+
+\path[draw=violet, line width=4pt, rounded corners]
+(copy) -- (back-stairs) -- (facilities) -- (orgs) -- (grossman)
+-- (atrium) -- (atrium-stairs) -- (yt16) -- (yt17) -- (north-stairs)
+-- (north-elevator)
+
+(atrium) -- (bath) -- (yt14)
+
+(yt16) -- (commons) -- (n-stairs) -- (info) -- (nt01) -- (nt03) -- (nt02)
+
+(north-stairs-above) to (north-elevator-above)
+
+($(commons)!0.6!(n-stairs)$) coordinate(commons-path)
+(commons-path) -- (commons-path -| group-study)
+;
+
+\path[draw=brown, line width=4pt, rounded corners, dashed]
+(north-stairs) -- (north-stairs-above)
+;
+
+\path[draw=violet, -Stealth, line width=4pt, rounded corners]
+(north-elevator-above) edge (north-elevator-exit)
+(nt08) edge (nt08-exit)
+(info) edge (nebraska)
+(front-stairs) edge (front-stairs-exit)
+(atrium) -- (group-study) -- (t-garage-right) -- (t-garage)
+;
+
+\path[bridge=brown]
+(north-elevator) -- (north-elevator-above)
+;
+
+
+%
+% Capital Atrium
+%
+\path[fill=violet]
+(front-stairs |- n-stairs)
+node[station, "CT16--17\\\court" toleft,
+] (ct16) {}
+
+node[right=6em of ct16, stairs, fill=gray] (ct-stairs) {}
+
+node[right=\smallgap of ct-stairs, stairs, fill=magenta] (j-stairs) {}
+
+node[right=\smallgap of j-stairs, transfer, fill=magenta, "\xf Capital" under]
+(c-elevator) {}
+
+node[above=of j-stairs, station, "Capital\\Atrium \food" toright] (c-atrium) {}
+coordinate[above=of c-atrium] (c-atrium-exit)
+
+($(ct16)!0.5!(ct-stairs)$) node[station, "\bath" under] (ct16-bath) {}
+node[above=\smallgap of ct16-bath, transfer, "\xf Court" {toright,
+anchor=north west}, fill=gray]
+(ct-elevator) {}
+;
+
+\path[draw=violet, line width=4pt, rounded corners]
+(info) -- (n-elevator) -- (helpdesk) -- (nt07) -- (nt08)
+(c-elevator) -- (j-stairs) -- (ct-stairs) -- (ct16-bath) -- (ct16)
+(ct-elevator) -- (ct16-bath)
+;
+
+\path[draw=violet, -Stealth, line width=4pt, rounded corners]
+(j-stairs) -- (c-atrium) -- (c-atrium-exit)
+;
+
+%
+% Journal level nodes
+%
+
+
+\path[fill=violet]
+(j-stairs |- nebraska) node[stairs, "\xf Capital\\To Journals" under,
+fill=magenta] (jj-stairs) {}
+node[right=\smallgap of c-elevator, transfer, fill=magenta] (jc-elevator) {}
+
+(jj-stairs -| jc-elevator) node[station, "CT07--10" under] (ct08) {}
+node[above=\smallgap of jc-elevator, station, "\bath" toright]
+(j-bath) {}
+node[above=\smallgap of j-bath, station, "CT01--05" toright] (ct01) {}
+node[left=of jj-stairs, station, "CT11--14" ontop] (ct11) {}
+;
+
+
+\path[draw=violet, line width=4pt, rounded corners]
+(ct01) -- (j-bath) -- (jc-elevator) -- (ct08) -- (jj-stairs)
+-- (ct11)
+;
+\path[draw=magenta, line width=4pt, dashed]
+(j-stairs) -- (jj-stairs)
+;
+
+\path[draw=violet, dashed, line width=4pt, rounded corners]
+;
+\path[bridge=magenta]
+(jc-elevator) -- (c-elevator)
+;
+\path[draw=violet, line width=4pt, rounded corners, -Stealth]
+(ct11) -- (nebraska)
+;

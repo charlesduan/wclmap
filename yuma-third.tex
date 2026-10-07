@@ -1,0 +1,80 @@
+\path[fill=red]
+\atrium
+\restrooms
+
+node[station, right=\smallgap of atrium-stairs, "Int'l Y360" angled] (intl) {}
+node[station, right=\smallgap of intl, "Rhetoric Y364" angled] (rhetoric) {}
+
+
+node[station, left=of bath, "FASS Y347" angled] (fass) {}
+node[station, left=\smallgap of fass, "Law \& Gov't Y346" angled] (lg) {}
+node[station, left=\smallgap of lg, "Adjunct Y343" angled] (adj) {}
+node[station, left=\smallgap of adj, "Externships Y340--341" angled] (extern) {}
+
+node[stairs, fill=green, left=of extern, "\xf West" angled]
+(back-stairs) {}
+
+($(back-stairs)!0.5!(extern)$) coordinate (coffee-n)
+(atrium -| coffee-n) coordinate (coffee-s)
+($(coffee-n)!0.5!(coffee-s)$) node[station,
+"Y312 \kitchen \copier" toright] (coffee) {}
+
+($(coffee-s)!0.5!(atrium)$) node[station, "Y300--313 \fac" under]
+(300) {}
+(atrium -| back-stairs) node[station, "Y315--322 \fac" under] (315)
+{}
+node[station, left=2em of back-stairs, "Y323--333\\\fac"
+toleft] (323) {}
+node[station, above=of back-stairs, "Y334--339\\\fac \copier" ontop] (334)
+{}
+
+(bath |- 334) ++(2em, 0) node[station, "Y349--359\\\fac \copier"
+toright]
+(349) {}
+
+node[right=of rhetoric, stairs, fill=orange, "\xf East" under]
+(front-stairs) {}
+
+coordinate[right=\bridgegap of front-stairs,
+"\textbf{$\leftarrow$ Yuma\quad Capital $\rightarrow$}\\\\Bridge" ontop]
+(cap)
+
+(349 -| cap) ++(0, -3em)
+node[font=\color{red}\bfseries\LARGE, align=center] {THIRD FLOOR}
+
+node[right=\bridgegap of cap, station, "C317 \class" toright] (c317) {}
+
+coordinate[below right=1em and 6em of c317] (corner-3)
+node[below=\smallgap of corner-3, stairs, "\bath" toleft,
+"Dean\\C301" toright, fill=magenta] (dean) {}
+node[below=\smallgap of dean, transfer, fill=magenta]
+(c-elevator) {}
+
+node[below=\smallgap of c-elevator, station, "Academic\\Affairs\\C302" toright]
+(aa) {}
+node[left=of aa, station, "C303" under] (c303) {}
+node[left=of c303, station, "C305" under] (c305) {}
+node[above=\smallgap of c305, stairs, "\xf Court" left, fill=gray]
+(ct-stairs) {}
+;
+
+\path[draw=red, line width=4pt, rounded corners]
+(back-stairs) -- (334) -| (323) |- (315) -- (coffee-s) -- (300) -- (atrium) --
+(atrium-stairs) --
+(intl) -- (rhetoric) -- (front-stairs)
+
+(dean) -- (c-elevator)
+node[midway, toleft] {\xf Capital}
+-- (aa) -- (c303) -- (c305) -- (ct-stairs)
+
+(atrium) -- (bath) |- (349)
+(323) -- (back-stairs) -- (coffee-n) -- (extern) -- (adj) -- (lg) -- (fass) --
+(bath)
+
+(coffee-n) -- (coffee) -- (coffee-s)
+;
+\path[draw=red, line width=4pt, rounded corners, dashed]
+(front-stairs) -- (cap) -- (c317) |- (corner-3) -- (dean)
+;
+
+

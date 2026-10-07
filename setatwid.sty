@@ -1,0 +1,95 @@
+%
+% setatwid.sty
+%
+% Copyright 2014 Charles Duan. This program is free software: you can
+% redistribute it and/or modify it under the terms of the GNU General Public
+% License as published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful, but WITHOUT
+% ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+% FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License along with
+% this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+%
+\ProvidesFile{setatwid}[2014/11/18 Set a vbox to the natural width of its
+largest element]
+%
+% #1 is a macro that produces one or more boxes based on two arguments, a width
+% and horizontal material. #2 is the text to be set.
+%
+\long\def\setatwidth#1#2{%
+    \ifdim\prevdepth>-1000\p@
+        \@tempskipa\baselineskip
+        \advance\@tempskipa-\prevdepth
+    \else
+        \@tempskipa=-1000\p@
+    \fi
+    \setatwidth@makebox{#1}{#2}%
+    \ifdim\@tempskipa>-1000\p@
+        \advance\@tempskipa-\ht\@tempboxa
+        \vskip\@tempskipa
+    \fi
+    \unvbox\@tempboxa
+    \prevdepth\@tempdimb
+}
+\long\def\setatwidthnoskip#1#2{%
+    \setatwidth@makebox{#1}{#2}%
+    \unvbox\@tempboxa
+}
+\long\def\setatwidth@makebox#1#2{%
+    \setbox\@tempboxa\vtop{%
+        \parfillskip=\z@
+        \leftskip=\z@
+        \rightskip=0pt\@plus.5\hsize
+        #2\par
+        \global\@tempdimb\prevdepth
+        \@tempdima\z@
+        \def\reserved@a##1##2{%
+            \setbox\@tempboxa\vbox{#1}%
+            \unvbox\@tempboxa
+        }%
+        \setatwidth@procskips
+        {\setatwidth@proclines}%
+        \setatwidth@restoreskips
+    }%
+}
+\def\setatwidth@proclines{%
+    \setbox\@tempboxa\lastbox % Collect the previous box on the list
+    \ifvoid\@tempboxa\else
+        % Set the box to its natural size
+        \setbox\@tempboxa\hbox{\unhbox\@tempboxa}%
+        % Update the maximum width found
+        \ifdim\wd\@tempboxa>\@tempdima \global\@tempdima\wd\@tempboxa \fi
+        % Sum up the vertical space before the box and also get the penalty
+        \setatwidth@procskips
+        % Recursively process the remaining boxes
+        {\setatwidth@proclines}%
+        \setatwidth@restoreskips
+        \reserved@a{\@tempdima}{\unhbox\@tempboxa}%
+    \fi
+}
+\def\setatwidth@procskips{%
+    \@tempskipa\z@
+    \advance\@tempskipa\lastskip \unskip
+    \advance\@tempskipa\lastskip \unskip
+    \advance\@tempskipa\lastskip \unskip
+    \advance\@tempskipa\lastskip \unskip
+    \@tempcnta\lastpenalty \unpenalty
+}
+\def\setatwidth@restoreskips{%
+    \ifnum\@tempcnta=\z@\else \penalty\@tempcnta \fi
+    \ifdim\@tempskipa=\z@\else \vskip\@tempskipa \fi
+}
+\long\def\justifyatwidth{\setatwidth{\hb@xt@##1{##2}}}
+\long\def\raggedrightatwidth{\setatwidth{\hb@xt@##1{##2\hfil}}}
+\long\def\centeratwidth{\setatwidth{\hb@xt@##1{\hfil##2\hfil}}}
+\long\def\fullcenteratwidth{%
+    \setatwidth{\hb@xt@\hsize{\hfil\hb@xt@##1{\hfil##2\hfil}\hfil}}%
+}
+\def\centeredraggedrightatwidth{%
+    \setatwidth{\hb@xt@\hsize{\hfil\hb@xt@##1{##2\hfil}\hfil}}%
+}
+\endinput
