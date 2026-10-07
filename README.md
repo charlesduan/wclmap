@@ -10,8 +10,11 @@ Two forms of maps are provided: maps of each floor individually, and a
 cross-sectional map indicating the ways in which elevators and stairs connect
 the various floors.
 
-The map itself is [`map.pdf`](map.pdf) in this repository, and a 2-up version is
-at [`twoup.pdf`](twoup.pdf).
+## Download
+
+* [`map.pdf`](map.pdf): The map.
+
+* [`twoup.pdf`](twoup.pdf): Both pages of the map combined on a single page.
 
 ## Compiling
 
@@ -23,7 +26,7 @@ A Makefile is provided to aid in compilation. To compile, run `make` alone or
 `make map.pdf`. If the [`cpdf`](https://www.coherentpdf.com/) command is
 available, then a 2-up version of the map may be made with `make 2up`.
 
-## Author and Contct
+## Author and Contact Information
 
 The author of this map is [Charles Duan](https://cduan.com),
 cduan@wcl.american.edu. Please feel free to email any questions, comments,
