@@ -10,6 +10,9 @@ Two forms of maps are provided: maps of each floor individually, and a
 cross-sectional map indicating the ways in which elevators and stairs connect
 the various floors.
 
+The map itself is [`map.pdf`](map.pdf) in this repository, and a 2-up version is
+at [`twoup.pdf`](twoup.pdf).
+
 ## Compiling
 
 The source code for the map uses LaTeX and the TikZ package. Only one other
